@@ -3,7 +3,7 @@ object=[];
 var label;
 function preload(){
     song=loadSound("alarm.mp3");
-};
+}
 function setup(){
     Canvas=createCanvas(300 ,300);
     Canvas.position(640 ,200);
@@ -13,7 +13,7 @@ function setup(){
     video.size(380,380);
     video.hide();
      
-};
+}
 function draw(){
  image(video ,0 ,0 ,300 ,300);
  if(status!=""){ 
@@ -27,14 +27,26 @@ function draw(){
         noFill();
         stroke(255,0,0);
         rect(object[i].x,object[i].y,object[i].width,object[i].height);
-     };
- };
-};
+        if(objects[i].label=="person"){
+            document.getElementById("status").innerHTML= "Status - Baby Found";
+            song.stop();
+        }
+        else{
+            document.getElementById("status").innerHTML= "Status - Baby not Found";
+            song.play();
+        }
+     }
+     if(objects.length==0){
+        document.getElementById("status").innerHTML= "Status - Baby not Found";
+            song.play();
+     }
+ }
+}
 function modelLoaded(){
 console.log("model is loaded"); 
 status=true;
 
-};
+}
 function gotResult(error,results){
     if(error){
         console.log(error);
@@ -54,5 +66,5 @@ function gotResult(error,results){
                     document.getElementById("status").innerHTML="Baby found";
                     song.play()=false;
                 }
-            };        
-};
+            }     
+}
